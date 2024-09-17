@@ -1,0 +1,15 @@
+Samkele Ndzululeka - Front-End Code Challenge
+
+*** Question One *** 
+
+1. What will the colour of both div elements be?
+
+== firstDiv will be Red and secondDiv will be Orange
+
+2. How would you dynamically target firstDiv and make it's colour pink? (provide the code snippet)
+
+== document.getElementById('firstDiv').style.backgroundColor = 'pink';
+
+3. How would you dynamically target secondDiv and add the yellow-card class to its class list? (provide the code snippet)
+
+== document.getElementById('secondDiv').classList.add('yellow-card');

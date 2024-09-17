@@ -1,0 +1,1 @@
+UPDATE employee_file SET email = CONCAT(SUBSTRING_INDEX(email, '@', 1), '@company', '.', SUBSTRING_INDEX(email, '.', -1)) WHERE email LIKE '%@%';

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  <!-- This ensures that the page is displayed correctly on all devices. -->
+    <style>
+
+        /* Default size which is used on desktop PCs */
+        body { 
+            font-size: 20px;
+            margin: 24px;
+            background-color: grey;
+        }
+
+        /* Chaging for devices with a maximum width of 720px which is mostly used on tablet devices and also on some mobile devices */
+        @media screen and (max-width: 720px) {
+            body {
+            font-size: 15px;
+            margin: 12px;
+            background-color: lightblue;
+            }
+        
+        /* and finally changing or handling functionality for devices with a max width of 480px which target for mobile devices */
+        @media screen and (max-width: 480px) {
+            body {
+                font-size: 10px;
+                margin: 6px;
+                background-color: lavender;       
+            }
+        }
+    }
+    </style>
+</head>
+<body>
+</body>
+</html>
