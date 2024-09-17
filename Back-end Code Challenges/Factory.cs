@@ -1,91 +1,75 @@
-public interface IRobotBuilder
+public class Factory
 {
-    Robot BuildRobot(Enum robotType);
-}
+    private RobotService _robotService;
+    private PartsService _partsService;
+    private CarService _carService;
 
-public interface ICarBuilder
-{
-    Car BuildCar(Enum carType);
-}
-
-public class RobotBuilder : IRobotBuilder
-{
-    private readonly RobotService _robotService;
-    private readonly PartsService _partsService;
-
-    public RobotBuilder(RobotService robotService, PartsService partsService)
+    public Factory(RobotService robotService, PartsService partsService, CarService carService)
     {
         _robotService = robotService;
         _partsService = partsService;
-    }
-
-    public Robot BuildRobot(Enum robotType)
-    {
-        var parts = GetRobotPartsFor(robotType);
-        return robotType switch
-        {
-            RoboticDog => _robotService.BuildRobotDog(parts),
-            RoboticCat => _robotService.BuildRobotCat(parts),
-            RoboticDrone => _robotService.BuildRobotDrone(parts),
-            RoboticCar => _robotService.BuildRobotCar(parts),
-            _ => null,
-        };
-    }
-
-    private List<Parts> GetRobotPartsFor(Enum robotType)
-    {
-        return _partsService.GetParts(robotType);
-    }
-}
-
-public class CarBuilder : ICarBuilder
-{
-    private readonly CarService _carService;
-    private readonly PartsService _partsService;
-
-    public CarBuilder(CarService carService, PartsService partsService)
-    {
         _carService = carService;
-        _partsService = partsService;
     }
 
-    public Car BuildCar(Enum carType)
+    public Robot BuildRobot(Enum RobotType)
     {
-        var parts = GetCarPartsFor(carType);
-        return carType switch
+        List<Parts> parts = GetRobotPartsFor(RobotType);
+
+        if (RobotType == RobotType.RoboticDog)
         {
-            Toyota => _carService.BuildCar(parts),
-            Ford => _carService.BuildCar(parts),
-            Opel => _carService.BuildCar(parts),
-            Honda => _carService.BuildCar(parts),
-            _ => null,
-        };
+            return _robotService.BuildRobotDog(parts);
+        }
+        else if (RobotType == RobotType.RoboticCat)
+        {
+            return _robotService.BuildRobotCat(parts);
+        }
+        else if (RobotType == RobotType.RoboticDrone)
+        {
+            return _robotService.BuildRobotDrone(parts);
+        }
+        else if (RobotType == RobotType.RoboticCar)
+        {
+            return _robotService.BuildRobotCar(parts);
+        }
+        else
+        {
+            return null;
+        }
     }
 
-    private List<Parts> GetCarPartsFor(Enum carType)
+    public Car BuildCar(Enum CarType)
     {
-        return _partsService.GetParts(carType);
+        List<Parts> parts = GetCarPartsFor(CarType);
+
+        if (CarType == CarType.Toyota)
+        {
+            return _carService.BuildCar(parts);
+        }
+        else if (CarType == CarType.Ford)
+        {
+            return _carService.BuildCar(parts);
+        }
+        else if (CarType == CarType.Opel)
+        {
+            return _carService.BuildCar(parts);
+        }
+        else if (CarType == CarType.Honda)
+        {
+            return _carService.BuildCar(parts);
+        }
+        else
+        {
+            return null;
+        }
     }
-}
 
-public class Factory
-{
-    private readonly IRobotBuilder _robotBuilder;
-    private readonly ICarBuilder _carBuilder;
-
-    public Factory(IRobotBuilder robotBuilder, ICarBuilder carBuilder)
+    private List<Parts> GetRobotPartsFor(Enum RobotType)
     {
-        _robotBuilder = robotBuilder;
-        _carBuilder = carBuilder;
+        return _partsService.GetParts(RobotType);
     }
 
-    public Robot CreateRobot(Enum robotType)
+    private List<Parts> GetCarPartsFor(Enum CarType)
     {
-        return _robotBuilder.BuildRobot(robotType);
-    }
-
-    public Car CreateCar(Enum carType)
-    {
-        return _carBuilder.BuildCar(carType);
+        return _partsService.GetParts(CarType);
     }
 }
